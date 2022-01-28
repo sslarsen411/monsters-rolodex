@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
 import { CardList } from './components/card-list/card-list.component'
+import { SearchBox } from './components/search-box/search-box.component'
+
 //  const fetch = require('node-fetch')
 class App extends Component {
   constructor () {
@@ -24,18 +26,12 @@ class App extends Component {
     const { monsters, searchField } = this.state
     const filteredMonsters = monsters.filter(monster =>
       monster.name.toLowerCase().includes(searchField.toLowerCase())
-      )
+    )
     return (
       <div className='App'>
-        <input
-          type='search'
+        <SearchBox
           placeholder='Search monsters'
-          // onChange={e => console.log(e.target.value)} />
-          onChange={e => // wrap in brackets {} for multiple lines
-            this.setState({ searchField: e.target.value })
-            // this.setState({ searchField: e.target.value }, () => // async, use callback: setState(updater, [callback])
-            //  console.log(this.state))
-          }
+          doChange={e => { this.setState({ searchField: e.target.value }) }}
         />
         <CardList monsters={filteredMonsters} />
       </div>
